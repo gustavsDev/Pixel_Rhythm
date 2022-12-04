@@ -1,7 +1,13 @@
 #include <SFML/Graphics.hpp>
 
+#include "src/GameObject.hpp"
+#include "src/Paddle.hpp"
+#include <string>
+
 int main() {
- sf::RenderWindow window(sf::VideoMode(640, 480), "SFML");
+  sf::RenderWindow window(sf::VideoMode(640, 480), "SFML");
+
+  Paddle paddle;
 
   while(window.isOpen()) {
     sf::Event event;
@@ -12,9 +18,12 @@ int main() {
           break;
       }
     }
+    paddle.update(window);
+
+    window.clear(sf::Color::Black);
+    paddle.render(window);
+    window.display();
   }
 
-  window.clear();
-  window.display();
   return 0;
 }
