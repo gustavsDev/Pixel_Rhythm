@@ -10,7 +10,7 @@ class GameObject {
     sf::Sprite sprite;
   public:
     GameObject() {
-      setTexture("res/img/BEENZ.png");
+      texture.create(1, 1);
     }
 
     GameObject(std::string file_dir) {
@@ -21,7 +21,11 @@ class GameObject {
       if (!texture.loadFromFile(file_dir)) {
         std::cout << "Could not load texture at " << file_dir << std::endl;
       }
+      texture.setRepeated(true);
       sprite.setTexture(texture);
+      sprite.setScale(
+        texture.getSize().x / sprite.getLocalBounds().width, 
+        texture.getSize().y / sprite.getLocalBounds().height);
     }
 
     sf::Sprite getSprite() {
