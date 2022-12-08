@@ -8,6 +8,7 @@ class GameObject {
   private:
     sf::Texture texture;
     sf::Sprite sprite;
+    sf::Vector2f velocity;
   public:
     GameObject() {
       texture.create(1, 1);
@@ -18,9 +19,7 @@ class GameObject {
     }
 
     void setTexture(std::string file_dir) {
-      if (!texture.loadFromFile(file_dir)) {
-        std::cout << "Could not load texture at " << file_dir << std::endl;
-      }
+      texture.loadFromFile(file_dir);
       texture.setRepeated(true);
       sprite.setTexture(texture);
       sprite.setScale(
@@ -36,11 +35,23 @@ class GameObject {
       window.draw(sprite);
     }
 
+    void update() {
+      sprite.move(velocity);
+    }
+
     void setPosition(sf::Vector2f position) {
       sprite.setPosition(position);
     }
 
+    void setVelocity(sf::Vector2f velocity) {
+      this->velocity = velocity;
+    }
+
     sf::Vector2f getPosition() {
       return sprite.getPosition();
+    }
+
+    sf::Vector2f getVelocity() {
+      return velocity;
     }
 };
